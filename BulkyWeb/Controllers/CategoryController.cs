@@ -23,7 +23,13 @@ namespace BulkyWeb.Controllers
         [HttpPost]
         public IActionResult Create(Category obj)
         {
-            if(ModelState.IsValid)
+            if(obj.Name == obj.DisplayOrder.ToString())
+            {
+                //ModelState.AddModelError("Name", "The Display Order cannot exactly match the Name."); Name is key 
+                ModelState.AddModelError("name", "The Display Order cannot exactly match the Name.");
+                //string.Empty is used to add a model error that is not associated with any specific property
+            }   
+            if (ModelState.IsValid)
             {
                 //ModelState.IsValid checks if the model is valid based on data annotations
                 //if not valid, it will return to the same view with validation errors
