@@ -27,7 +27,12 @@
                 <a asp-controller="Category" asp-action="Index" class="btn text-light btn-link  form-control">Back to list</a>
             </div>
         </div>
-        
+        @* <partial name="_ValidationScriptsPartial" /> if it is not a script then we could have added here *@
        
     </div>
 </form>
+@section Scripts {
+    @{
+        <partial name="_ValidationScriptsPartial" />
+    }    
+}
