@@ -28,7 +28,13 @@ namespace BulkyWeb.Controllers
                 //ModelState.AddModelError("Name", "The Display Order cannot exactly match the Name."); Name is key 
                 ModelState.AddModelError("name", "The Display Order cannot exactly match the Name.");
                 //string.Empty is used to add a model error that is not associated with any specific property
-            }   
+            }
+            if (obj.Name != null && obj.Name.ToLower() == "test")
+            {
+                //ModelState.AddModelError("Name", "The Display Order cannot exactly match the Name."); key is empty so not display under any feild 
+                ModelState.AddModelError("", "Test is an invalid value.");
+                //string.Empty is used to add a model error that is not associated with any specific property
+            }
             if (ModelState.IsValid)
             {
                 //ModelState.IsValid checks if the model is valid based on data annotations
