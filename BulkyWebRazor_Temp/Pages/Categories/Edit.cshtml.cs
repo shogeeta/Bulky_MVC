@@ -5,30 +5,38 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace BulkyWebRazor_Temp.Pages.Categories
 {
-    [BindProperties] // This attribute is used to bind all the properties of the model to the form inputs
-    public class CreateModel : PageModel
+    [BindProperties]
+    public class EditModel : PageModel
     {
         private readonly ApplicationDbContext _db;
-        //[BindProperty] // This attribute is not needed here since we are using [BindProperties] at the class level
-        public Category Category{ get; set; }
-        public CreateModel(ApplicationDbContext db)
+        public Category? Category { get; set; }
+        public EditModel(ApplicationDbContext db)
         {
             _db = db;
         }
-        public void OnGet()
+        public void OnGet(int? id)
         {
-            //_db.Add
+            if(id != null && id != 0)
+            {
+                Category = _db.Categories.Find(id);
+            }
+            //else
+            //{
+            //    Category = new Category();
+            //}
         }
         public IActionResult OnPost()
         {
             if (ModelState.IsValid)
             {
-                _db.Categories.Add(Category);
+                _db.Categories.Update(Category);
                 _db.SaveChanges();
-                TempData["success"] = "Category created successfully";
+
+                TempData["success"] = "Category updated successfully";
                 return RedirectToPage("Index");
             }
             return Page();
         }
+
     }
 }
